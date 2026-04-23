@@ -1,57 +1,111 @@
-# Multi-Tenant Task Management System
+# 🚀 TM PRO - Enterprise Multi-Tenant Task Workspace
 
-A scalable, secure, and multi-tenant task management system built with the PERN stack (Postgres, Express, React, Node.js).
+**TM PRO** is a production-grade, multi-tenant SaaS platform designed for high-performance team collaboration. Built with a focus on security, scalability, and premium user experience, it features strict data isolation, role-based access control (RBAC), and deep audit logging.
 
-## Features
-- **Multi-tenancy**: Strict data isolation between organizations.
-- **Role-Based Access Control (RBAC)**: Admin and Member roles with different permissions.
-- **Audit Logging**: Tracks all task-related actions (Creation, Updates, Deletions).
-- **Authentication**: JWT-based secure authentication.
-- **Containerization**: Fully dockerized setup for easy deployment.
-- **Premium UI**: Modern dark-mode design with glassmorphism and smooth animations.
+![Project Status](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/Stack-React%20%7C%20Node%20%7C%20Postgres%20%7C%20Docker-blue?style=for-the-badge)
 
-## Tech Stack
-- **Frontend**: React, Vite, Framer Motion, Lucide Icons
-- **Backend**: Node.js, Express, Prisma ORM
-- **Database**: PostgreSQL
-- **Containerization**: Docker, Docker Compose
+---
 
-## Getting Started
+## ✨ Key Features
+
+### 🏢 Multi-Tenancy & Data Isolation
+- **Strict Scoping**: Every database record is linked to a unique `organizationId`.
+- **Zero Leakage**: Security middleware ensures users can only access data belonging to their specific organization.
+
+### 🔐 Advanced Authentication & Security
+- **JWT Token Rotation**: Secure Access + Refresh token system with automatic rotation via Axios interceptors.
+- **OAuth 2.0**: Integrated Google SSO for seamless enterprise onboarding.
+- **RBAC (Role-Based Access Control)**:
+  - **ADMIN**: Full visibility into organization tasks, analytics, and audit trails.
+  - **MEMBER**: Focused workspace limited to personal tasks and project objectives.
+
+### 📊 Business Intelligence & Analytics
+- **Live Velocity Charts**: Real-time visualization of task throughput using Recharts.
+- **Resource Management**: Tracking efficiency, health scores, and backlog depth.
+- **Activity Stream**: A live audit trail of all actions performed within the organization.
+
+### 🛠️ Production-Grade Infrastructure
+- **Docker Orchestration**: Multi-container environment with PostgreSQL, Node.js, and Nginx.
+- **Modular Backend**: Clean architecture using the Model-Controller-Service-Route pattern.
+- **Modern UI**: Linear/Vercel inspired dark-mode interface built with **Tailwind CSS v4** and Framer Motion.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React (Vite), Tailwind CSS v4, Lucide React, Recharts, Framer Motion.
+- **Backend**: Node.js, Express, Prisma ORM, Passport.js (OAuth), JWT.
+- **Database**: PostgreSQL (Production), SQLite (Local Dev).
+- **DevOps**: Docker, Docker Compose, Nginx.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Docker & Docker Compose installed on your machine.
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Recommended)
+- Node.js v18+ (for local development)
 
-### Run with Docker (Recommended)
-1. Clone the repository.
-2. Navigate to the root directory.
-3. Run the following command:
+### Option 1: Docker (Production-Ready)
+The fastest way to spin up the entire environment:
+```powershell
+docker-compose up --build
+```
+- **Frontend**: `http://localhost`
+- **Backend API**: `http://localhost:5000`
+
+### Option 2: Local Development
+1. **Setup Backend**:
    ```bash
-   docker-compose up --build
+   cd backend
+   npm install
+   npx prisma generate
+   npm start
    ```
-4. Access the frontend at `http://localhost:3000` and the backend at `http://localhost:5000`.
+2. **Setup Frontend**:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-### Manual Setup (Local)
-1. **Database**: Ensure PostgreSQL is running and create a database named `taskmanager`.
-2. **Backend**:
-   - `cd backend`
-   - `npm install`
-   - Update `.env` with your `DATABASE_URL`.
-   - `npx prisma migrate dev --name init`
-   - `npm start`
-3. **Frontend**:
-   - `cd frontend`
-   - `npm install`
-   - `npm run dev`
+---
 
-## Roles & Permissions
-- **Admin**: Can create, view, and delete ANY task within their organization. Can view audit logs for the entire organization.
-- **Member**: Can create tasks. Can only view/delete tasks they created.
+## 📂 Project Structure
 
-## API Documentation
-- `POST /api/auth/signup`: Create a new user and organization.
-- `POST /api/auth/login`: Authenticate and get JWT.
-- `GET /api/tasks`: Get all tasks for your organization.
-- `POST /api/tasks`: Create a new task.
-- `PUT /api/tasks/:id`: Update a task (RBAC enforced).
-- `DELETE /api/tasks/:id`: Delete a task (RBAC enforced).
-- `GET /api/tasks/logs`: View organization audit logs (Admin only).
+```text
+├── backend/
+│   ├── src/
+│   │   ├── controllers/   # Business logic
+│   │   ├── routes/        # API endpoints
+│   │   ├── middlewares/   # Auth & Security
+│   │   └── services/      # Audit & Utils
+│   ├── prisma/            # Database schema
+│   └── Dockerfile
+├── frontend/
+│   ├── src/
+│   │   ├── components/    # Premium UI Components
+│   │   └── api.js         # Secure Axios config
+│   ├── nginx.conf         # Production routing
+│   └── Dockerfile
+└── docker-compose.yaml    # Full stack orchestration
+```
+
+---
+
+## 🔒 Security Architecture
+
+**TM PRO** implements industry-standard security protocols:
+- **Password Hashing**: Uses `bcryptjs` for secure credential storage.
+- **Access Control**: Middlewares verify both JWT validity and Tenant ownership on every request.
+- **Persistent Audit Logs**: Every `CREATE`, `UPDATE`, and `DELETE` action creates a JSON snapshot of the state change for accountability.
+
+---
+
+## 📄 License
+This project is part of a professional internship portfolio. All rights reserved.
+
+---
+
+**Built with ❤️ for High-Performance Teams.**
