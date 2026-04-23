@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
-import { Mail, Lock, LogIn, GitHub, Zap } from 'lucide-react';
+import { Mail, Lock, LogIn, Github, Zap } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
@@ -106,7 +106,7 @@ const Login = () => {
               Google
             </button>
             <button className="flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/5 py-3 rounded-xl transition-all text-sm font-medium text-zinc-300">
-              <GitHub size={18} />
+              <Github size={18} />
               GitHub
             </button>
           </div>
