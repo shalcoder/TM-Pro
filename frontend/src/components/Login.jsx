@@ -28,8 +28,8 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    // Use relative path for Docker/Nginx compatibility
-    window.location.href = '/api/auth/google';
+    // Force browser to hit the backend route
+    window.location.href = 'http://localhost:5000/api/auth/google';
   };
 
   return (
