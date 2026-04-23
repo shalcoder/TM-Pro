@@ -2,11 +2,15 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const prisma = require('../../db');
 
+// Detect if we are in Docker or Local
+const callbackURL = process.env.NODE_ENV === 'production' 
+  ? "http://localhost/api/auth/google/callback"
+  : "http://localhost:5000/api/auth/google/callback";
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || 'PLACEHOLDER',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'PLACEHOLDER',
-    // Updated to match Nginx proxy (Port 80)
-    callbackURL: "http://localhost/api/auth/google/callback"
+    callbackURL: callbackURL
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
@@ -25,7 +29,7 @@ passport.use(new GoogleStrategy({
         user = await prisma.user.create({
           data: {
             email,
-            password: 'OAUTH_USER', // Security placeholder
+            password: 'OAUTH_USER',
             role: 'ADMIN',
             organizationId: org.id
           },
