@@ -136,6 +136,6 @@ exports.oauthSuccess = async (req, res) => {
     organizationName: userWithOrg.organization.name
   });
 
-  // Redirect back to frontend with tokens
-  res.redirect(`http://localhost:3000/login?token=${accessToken}&refresh=${refreshToken}&user=${encodeURIComponent(userData)}`);
+  // Redirect back to frontend with tokens - relative path for env-agnostic behavior
+  res.redirect(`/login?token=${accessToken}&refresh=${refreshToken}&user=${encodeURIComponent(userData)}`);
 };
