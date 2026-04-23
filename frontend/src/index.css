@@ -1,17 +1,10 @@
-@import "tailwindcss";
-
-@theme {
-  --color-dark: #09090b;
-  --color-dark-surface: #121214;
-  --color-dark-card: #18181b;
-  --color-border-subtle: rgba(255, 255, 255, 0.06);
-  --color-indigo-600: #6366f1;
-  --color-indigo-700: #4f46e5;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-dark text-zinc-100 antialiased font-sans selection:bg-indigo-500/30;
+    @apply bg-dark text-zinc-100 antialiased;
   }
 }
 
@@ -26,14 +19,6 @@
 
   .stat-badge {
     @apply px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tighter uppercase border;
-  }
-
-  .linear-border {
-    @apply border-b border-border-subtle;
-  }
-
-  .skeleton-box {
-    @apply bg-white/5 animate-pulse rounded-md;
   }
 }
 

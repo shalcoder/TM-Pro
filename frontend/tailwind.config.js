@@ -7,16 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: {
-          DEFAULT: '#0a0c10',
-          surface: '#13171f',
-          card: '#161b22',
-        },
-        primary: {
-          DEFAULT: '#4f46e5',
-          glow: 'rgba(79, 70, 229, 0.3)',
-        }
-      }
+        dark: "#09090b",
+        "dark-surface": "#121214",
+        "dark-card": "#18181b",
+        "border-subtle": "rgba(255, 255, 255, 0.06)",
+      },
     },
   },
   plugins: [],
