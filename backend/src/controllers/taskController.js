@@ -36,7 +36,7 @@ exports.createTask = async (req, res) => {
         description,
         priority: priority || 'MEDIUM',
         createdById: req.user.id,
-        organizationId: req.orgId
+        organizationId: req.orgId || req.user.organizationId
       }
     });
 
