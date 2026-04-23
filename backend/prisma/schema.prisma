@@ -33,7 +33,8 @@ model Task {
   id             String       @id @default(uuid())
   title          String
   description    String?
-  status         String       @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
+  status         String       @default("PENDING") // BACKLOG, PENDING, IN_PROGRESS, REVIEW, COMPLETED
+  priority       String       @default("MEDIUM")  // LOW, MEDIUM, HIGH
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
   createdById    String
