@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import api from '../api';
 import { Mail, Lock, LogIn, User, Zap } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -9,6 +9,23 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle OAuth Redirect Tokens
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    const refresh = params.get('refresh');
+    const userData = params.get('user');
+
+    if (token && refresh && userData) {
+      localStorage.setItem('accessToken', token);
+      localStorage.setItem('refreshToken', refresh);
+      localStorage.setItem('user', decodeURIComponent(userData));
+      toast.success('Access Granted via SSO');
+      setTimeout(() => navigate('/dashboard'), 100);
+    }
+  }, [location, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
