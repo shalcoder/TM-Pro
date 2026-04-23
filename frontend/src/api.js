@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  // Use relative path for Docker/Nginx proxying
+  baseURL: '/api',
 });
 
 // Intercept requests to add the access token
@@ -23,7 +24,8 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = localStorage.getItem('refreshToken');
-        const res = await axios.post('http://localhost:5000/api/auth/refresh', { refreshToken });
+        // We use the full URL here for the refresh to be safe, or relative
+        const res = await axios.post('/api/auth/refresh', { refreshToken });
         
         localStorage.setItem('accessToken', res.data.accessToken);
         localStorage.setItem('refreshToken', res.data.refreshToken);

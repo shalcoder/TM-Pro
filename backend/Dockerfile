@@ -1,8 +1,11 @@
 FROM node:20-alpine
 
+# Install openssl for Prisma
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
-# Install dependencies first (for caching)
+# Install dependencies
 COPY package*.json ./
 RUN npm install
 
@@ -17,4 +20,5 @@ COPY . .
 EXPOSE 5000
 
 # Start the production server
-CMD ["npm", "start"]
+# We use db push to ensure the Postgres DB is ready and synced
+CMD ["sh", "-c", "npx prisma db push && npm start"]
