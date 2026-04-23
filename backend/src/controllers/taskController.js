@@ -49,7 +49,8 @@ exports.createTask = async (req, res) => {
 
     res.status(201).json(task);
   } catch (err) {
-    res.status(400).json({ error: 'Task creation failed' });
+    console.error('CRITICAL ERROR IN CREATE_TASK:', err);
+    res.status(400).json({ error: 'Task creation failed', details: err.message });
   }
 };
 
